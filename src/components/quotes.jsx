@@ -7,18 +7,13 @@ class Quote extends Component {
     };
 
     async componentDidMount() {
-        this.getQuote();
+        const category = this.props.match.params.category_name;
+
+
+        this.getQuote(category);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.category !== this.props.category) {
-            this.getQuote()
-        }
-    }
-
-    getQuote = async () => {
-        const { category } = this.props
-
+    getQuote = async category => {
         const data = await loadData(
             `https://api.chucknorris.io/jokes/random?category=${category}`
         );
@@ -31,13 +26,12 @@ class Quote extends Component {
 
     handleClick = e => {
         e.preventDefault()
-        this.getQuote();
+        this.getQuote(this.props.match.params.category_name);
     };
 
     render() {
-        console.log(this.props)
         const { quote } = this.state;
-        const { category } = this.props;
+        const category = this.props.match.params.category_name;
         return (
             <>
                 <p>{quote}</p>

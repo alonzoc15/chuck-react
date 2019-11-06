@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import Quote from './components/quotes';
+import CategoryList from './components/categoryList'
 
 import './App.css';
 
-class App extends Component {
-    state = {
-        category: 'dev'
-    };
-
-    changeCategory = () => {
-        this.setState({
-            category: 'sport'
-        })
-    };
-
-    render() {
-        const { category } = this.state;
-        return ( 
-            <div className = "App" >
-                <Quote  category={category} />
-                <br />
-                <button onClick={() => this.changeCategory}>
-                Change category
-                </button>
-            </div>
-        );
-    }
+function App () {
+return ( 
+        <div className = "App" >
+            <header>
+                <h1>Chuck Reacts!! </h1>
+            </header>
+            <Router>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to='/'>Home</Link>
+                    </li>
+                </ul>
+            </nav>
+            <Route path='/' exact>
+                <CategoryList />
+            </Route>
+            <Route path='/category/:category_name' component={Quote}/>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
